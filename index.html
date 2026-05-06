@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Habitat Scout · Toulouse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --cream: #F4EDE0;
+    --cream-2: #FDFBF6;
+    --ink: #2A1810;
+    --brick: #B0492C;
+    --brick-deep: #7E2E1A;
+    --gold: #C8923D;
+    --green: #5B7C4A;
+    --blue: #3B6E8F;
+    --line-a: #B0492C;
+    --line-b: #3B6E8F;
+    --border: rgba(42,24,16,0.15);
+    --border-strong: rgba(42,24,16,0.25);
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(ellipse at top left, #F4EDE0 0%, #EBDDC8 60%, #E2CDB0 100%);
+    min-height: 100vh;
+  }
+  .display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  a { color: inherit; }
+
+  /* Layout */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  @media (min-width: 768px) { .wrap { padding: 0 40px; } }
+
+  /* Masthead */
+  header.mast {
+    position: relative; overflow: hidden;
+    border-bottom: 2px solid rgba(42,24,16,0.1);
+  }
+  header.mast::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .mast-inner { padding: 40px 0 32px; position: relative; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: #5C4A3E; font-weight: 500; margin-bottom: 14px;
+  }
+  .eyebrow .rule { display: inline-block; width: 32px; height: 1px; background: #5C4A3E; }
+  h1.title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(48px, 8vw, 96px); line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--brick-deep); margin: 0;
+    font-weight: 700;
+  }
+  h1.title em { font-style: italic; font-weight: 300; }
+  .tagline {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic; font-size: clamp(16px, 2vw, 22px);
+    color: #4a3527; margin: 14px 0 0; max-width: 640px; font-weight: 400;
+  }
+  .tagline .num { font-style: normal; font-family: 'JetBrains Mono', monospace; }
+
+  .mast-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  .info-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--border-strong); background: transparent;
+    font: inherit; font-size: 14px; cursor: pointer; transition: background 0.2s;
+    color: var(--ink);
+  }
+  .info-btn:hover { background: rgba(42,24,16,0.05); }
+
+  .info-panel {
+    background: var(--ink); color: #e7e5e1; border-radius: 8px;
+    padding: 24px; font-size: 14px; line-height: 1.55; margin-top: 24px;
+    display: none;
+  }
+  .info-panel.open { display: block; }
+  .info-panel b { color: white; }
+  .info-panel ol { padding-left: 20px; margin: 8px 0; }
+  .info-panel ol li { margin-bottom: 4px; color: #c8c4bd; }
+  .info-panel a { color: #E8A86B; }
+  .info-panel .icon { color: #E8A86B; flex-shrink: 0; margin-top: 2px; }
+  .info-panel .row { display: flex; gap: 12px; }
+
+  /* Section */
+  section { padding: 40px 0; }
+  .h2-row {
+    display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px;
+  }
+  h2.section-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 32px; color: var(--brick-deep); margin: 0;
+    font-weight: 600;
+  }
+  h2.section-title .sub {
+    font-style: italic; font-weight: 300; font-size: 20px; color: #6b5848;
+  }
+  .lede { color: #4a3527; font-size: 14px; max-width: 640px; margin: 0 0 24px; }
+
+  /* University chips */
+  .uni-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 10px 16px; border-radius: 999px; font-size: 14px;
+    border: 2px solid var(--border-strong); background: transparent;
+    cursor: pointer; transition: all 0.2s; font: inherit; text-align: left;
+    color: var(--ink);
+  }
+  .chip .label-top { font-weight: 600; }
+  .chip .label-bot {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    opacity: 0.75; margin-top: 2px;
+  }
+  .chip.active {
+    background: var(--brick-deep); color: var(--cream); border-color: var(--brick-deep);
+  }
+
+  .label-eyebrow {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #5C4A3E; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+
+  /* Filters */
+  .filters {
+    display: grid; gap: 24px; margin-top: 32px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) { .filters { grid-template-columns: repeat(4, 1fr); } }
+
+  .field-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #5C4A3E; margin-bottom: 8px;
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  .field-label .hint { color: #9c8773; text-transform: none; letter-spacing: 0; }
+  .field-value {
+    font-family: 'JetBrains Mono', monospace; font-size: 24px; margin-top: 4px;
+  }
+
+  input[type=range] {
+    width: 100%; accent-color: var(--brick-deep);
+  }
+
+  .room-group { display: flex; gap: 6px; margin-top: 8px; }
+  .room-btn {
+    flex: 1; padding: 10px 0; font: inherit;
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    border-radius: 6px; border: 2px solid var(--border);
+    background: transparent; color: var(--ink); cursor: pointer; transition: all 0.15s;
+  }
+  .room-btn.active {
+    background: var(--brick-deep); color: var(--cream); border-color: var(--brick-deep);
+  }
+
+  /* Stats banner */
+  .stats {
+    margin-top: 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: rgba(42,24,16,0.15); border: 1px solid rgba(42,24,16,0.15);
+    border-radius: 8px; overflow: hidden;
+  }
+  @media (min-width: 768px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stat { background: var(--cream-2); padding: 20px; }
+  .stat-val {
+    font-family: 'Fraunces', serif; font-size: 28px; color: var(--brick-deep);
+    line-height: 1;
+  }
+  .stat-val.mono { font-family: 'JetBrains Mono', monospace; font-size: 22px; }
+  .stat-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #5C4A3E; margin-top: 6px;
+  }
+
+  /* Portal launchers */
+  .portals { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .portals { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .portals { grid-template-columns: repeat(4, 1fr); } }
+
+  .portal {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--cream-2); border: 2px solid rgba(42,24,16,0.15);
+    border-radius: 8px; padding: 24px; transition: border-color 0.2s;
+    position: relative;
+  }
+  .portal:hover { border-color: var(--brick-deep); }
+  .portal-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .portal-name {
+    font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
+    color: var(--brick-deep);
+  }
+  .portal-meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: #5C4A3E; line-height: 1.7;
+  }
+  .portal-cta {
+    margin-top: 16px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #6b5848; transition: color 0.2s;
+  }
+  .portal:hover .portal-cta { color: var(--brick-deep); }
+
+  /* Stations list */
+  .station-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .station-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--cream-2); border: 1px solid rgba(42,24,16,0.15);
+    border-radius: 999px; padding: 6px 12px; font-size: 13px;
+  }
+  .line-badge {
+    width: 20px; height: 20px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 10px; font-weight: 700; color: white;
+  }
+  .line-A { background: var(--line-a); }
+  .line-B { background: var(--line-b); }
+  .station-pill .ppm {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: #6b5848; margin-left: 4px;
+  }
+
+  /* Listings */
+  .listings {
+    display: grid; gap: 20px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) { .listings { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .listings { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--cream-2); border: 2px solid rgba(42,24,16,0.10);
+    border-radius: 8px; overflow: hidden; transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--brick-deep); }
+
+  .card-photo {
+    position: relative; height: 128px; overflow: hidden;
+    display: flex; align-items: flex-end; padding: 16px;
+  }
+  .card-photo .building-icon {
+    color: var(--brick-deep); opacity: 0.5;
+  }
+  .card-tag {
+    position: absolute; top: 12px;
+    background: rgba(42,24,16,0.85); color: var(--cream);
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .card-tag.right { right: 12px; }
+  .card-station {
+    position: absolute; top: 12px; left: 12px;
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(253,251,246,0.9); color: var(--ink);
+    font-size: 12px; padding: 4px 10px; border-radius: 999px;
+  }
+  .card-station .line-badge { width: 16px; height: 16px; font-size: 9px; }
+  .card-station .name { font-weight: 500; }
+
+  .card-body { padding: 20px; }
+  .card-title-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 8px; margin-bottom: 4px;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif; font-size: 18px; line-height: 1.2;
+    margin: 0; font-weight: 500;
+  }
+  .card-meta-line {
+    font-size: 12px; color: #6b5848; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+  }
+  .card-meta-line .dot { color: #b8a78f; }
+
+  .card-price-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 16px;
+  }
+  .card-price { font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700; }
+  .card-ppm { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6b5848; margin-top: 2px; }
+  .card-spec { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #4a3527; text-align: right; }
+  .card-extras {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #6b5848; margin-top: 2px;
+  }
+
+  .card-indicator {
+    border-top: 1px solid rgba(42,24,16,0.10); padding-top: 12px;
+  }
+  .ind-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; margin-bottom: 4px;
+  }
+  .ind-row.minor { color: #6b5848; font-size: 11px; }
+  .ind-label { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+  .ind-pct { font-family: 'JetBrains Mono', monospace; }
+
+  .empty-state {
+    background: var(--cream-2); border: 2px dashed rgba(42,24,16,0.15);
+    border-radius: 8px; padding: 48px; text-align: center;
+  }
+  .empty-state .title {
+    font-family: 'Fraunces', serif; font-size: 20px; color: #6b5848;
+  }
+  .empty-state .sub { font-size: 14px; color: #9c8773; margin-top: 4px; }
+
+  /* Chart */
+  .chart-wrap {
+    background: var(--cream-2); border: 1px solid rgba(42,24,16,0.15);
+    border-radius: 8px; padding: 24px;
+  }
+  .chart-row {
+    display: grid; grid-template-columns: 140px 1fr 90px;
+    gap: 12px; align-items: center; margin-bottom: 8px; font-size: 12px;
+  }
+  .chart-row .lbl { font-weight: 500; color: var(--ink); }
+  .chart-row .val { font-family: 'JetBrains Mono', monospace; color: #4a3527; text-align: right; }
+  .bars { display: flex; flex-direction: column; gap: 3px; }
+  .bar {
+    height: 12px; border-radius: 0 4px 4px 0; min-width: 1px;
+    transition: width 0.3s;
+  }
+  .bar.current { background: var(--brick); }
+  .bar.sold { background: var(--blue); }
+
+  .legend-row { display: flex; gap: 24px; margin-top: 16px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; color: #4a3527; }
+  .legend-swatch { width: 16px; height: 12px; border-radius: 2px; }
+
+  /* Footer */
+  footer {
+    border-top: 2px solid rgba(42,24,16,0.1); margin-top: 48px;
+  }
+  .foot {
+    padding: 32px 0; font-size: 12px; color: #6b5848;
+    display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between;
+  }
+  .foot .brand { font-family: 'Fraunces', serif; font-style: italic; }
+
+  /* Icons */
+  .icon-inline { display: inline-block; vertical-align: -3px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="mast">
+  <div class="wrap mast-inner">
+    <div class="mast-row">
+      <div>
+        <div class="eyebrow">
+          <span class="rule"></span>
+          <span>Toulouse · Édition 2026</span>
+        </div>
+        <h1 class="title">Habitat <em>Scout</em></h1>
+        <p class="tagline">
+          Apartments under <span class="num">€160k</span>, ten minutes on foot from a metro that drops you at a university.
+        </p>
+      </div>
+      <div>
+        <button class="info-btn" id="infoBtn" type="button">
+          <svg class="icon-inline" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          How it works
+        </button>
+      </div>
+    </div>
+
+    <div class="info-panel" id="infoPanel">
+      <div class="row">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <div>
+          <p style="margin:0">Browser tools can't legally scrape Leboncoin / SeLoger in real time (CORS + their anti-bot terms). What this scout does instead:</p>
+          <ol>
+            <li><b>Deep-links to each portal's Toulouse page</b> for apartments on sale. Set price/surface in the portal's own filter UI once you land — those URL parameters change too often to bake in reliably.</li>
+            <li><b>Maps universities → metro stations</b> so only neighborhoods that actually serve a campus appear in the eligible list.</li>
+            <li><b>Benchmarks any price</b> against the local €/m² and recent comparable sales (DVF-style data).</li>
+            <li><b>Shows demo cards</b> illustrating how matched listings would render with the price-vs-market indicator.</li>
+          </ol>
+          <p style="color:#9c948a; margin: 8px 0 0;">For continuous, automated scraping you'd need a server-side scheduler (Python + Playwright on a VPS, or an alert service like Castorus). The benchmark data here is a snapshot — refresh against <a href="https://app.dvf.etalab.gouv.fr/" target="_blank" rel="noreferrer">app.dvf.etalab.gouv.fr</a> for actual notarized sales.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ FILTERS ═══════════════ -->
+<section class="wrap">
+  <div class="h2-row">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7E2E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+    <h2 class="section-title">Define your search</h2>
+  </div>
+
+  <div style="margin-top: 24px;">
+    <div class="label-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      Universities served by metro
+    </div>
+    <div class="uni-grid" id="uniGrid"></div>
+  </div>
+
+  <div class="filters">
+    <div>
+      <div class="field-label"><span>Max price</span><span class="hint">€</span></div>
+      <input type="range" id="maxPrice" min="50000" max="160000" step="5000" value="160000">
+      <div class="field-value" id="maxPriceVal">160 000 €</div>
+    </div>
+    <div>
+      <div class="field-label"><span>Min surface</span><span class="hint">m²</span></div>
+      <input type="range" id="minSurface" min="15" max="80" value="20">
+      <div class="field-value" id="minSurfaceVal">20 m²</div>
+    </div>
+    <div>
+      <div class="field-label"><span>Max surface</span><span class="hint">m²</span></div>
+      <input type="range" id="maxSurface" min="25" max="120" value="80">
+      <div class="field-value" id="maxSurfaceVal">80 m²</div>
+    </div>
+    <div>
+      <div class="field-label"><span>Rooms</span></div>
+      <div class="room-group" id="roomGroup">
+        <button type="button" class="room-btn active" data-room="all">∗</button>
+        <button type="button" class="room-btn" data-room="1">T1</button>
+        <button type="button" class="room-btn" data-room="2">T2</button>
+        <button type="button" class="room-btn" data-room="3">T3</button>
+        <button type="button" class="room-btn" data-room="4+">T4+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+</section>
+
+<!-- ═══════════════ PORTALS ═══════════════ -->
+<section class="wrap">
+  <div class="h2-row">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7E2E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <h2 class="section-title">Real-time portals</h2>
+  </div>
+  <p class="lede">One click → the live "appartements à vendre, Toulouse" page on each portal. Each portal's URL filter syntax for price/surface changes regularly and breaks easily, so set those on the portal itself once you land — every portal has a working filter UI on the page. For the eligible neighbourhoods, use the station list below.</p>
+
+  <div class="portals" id="portals"></div>
+
+  <div style="margin-top: 32px;">
+    <div class="label-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 11h16M12 4v16"/></svg>
+      Stations matching your universities
+    </div>
+    <div id="stationList" class="station-list"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ LISTINGS ═══════════════ -->
+<section class="wrap">
+  <div class="h2-row">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7E2E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>
+    <h2 class="section-title">Annonces du jour <span class="sub" id="updatedAt">/ chargement…</span></h2>
+  </div>
+  <p class="lede">Annonces récupérées une fois par jour sur Leboncoin et SeLoger, triées par meilleur rapport prix/marché. Cliquez une carte pour ouvrir l'annonce sur le portail d'origine.</p>
+
+  <div id="listings" class="listings"></div>
+</section>
+
+<!-- ═══════════════ MARKET BENCHMARK ═══════════════ -->
+<section class="wrap" style="padding-bottom: 80px;">
+  <div class="h2-row">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7E2E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+    <h2 class="section-title">Market benchmark</h2>
+  </div>
+  <p class="lede">Average <b>asking price</b> per m² (current listings) versus <b>recent sale</b> price per m² (notarized transactions, DVF-style) across the matched neighborhoods.</p>
+
+  <div id="chartWrap"></div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="brand">Habitat Scout · La Ville Rose</div>
+    <div>Sources: Tisséo (metro), DVF Etalab (sales), portail listings · Benchmarks indicative.</div>
+  </div>
+</footer>
+
+<script>
+// ═════════════ DATA ═════════════
+
+const UNIVERSITIES = [
+  { id: 'UT1',      short: 'UT1 Capitole',      focus: 'Droit · Économie',         stations: ['Capitole', 'Saint-Michel — Marcel Langer', 'Carmes'] },
+  { id: 'UT2J',     short: 'UT2J Jean Jaurès',  focus: 'Lettres · Sciences Hum.',  stations: ['Mirail-Université', 'Bellefontaine', 'Reynerie'] },
+  { id: 'UT3',      short: 'UT3 Paul Sabatier', focus: 'Sciences · Santé',         stations: ['Université Paul Sabatier', 'Faculté de Pharmacie', 'Rangueil'] },
+  { id: 'INSA',     short: 'INSA Toulouse',     focus: 'Ingénierie',               stations: ['Faculté de Pharmacie', 'Rangueil'] },
+  { id: 'ISAE',     short: 'ISAE-SUPAERO',      focus: 'Aéronautique · Espace',    stations: ['Rangueil'] },
+  { id: 'ENSEEIHT', short: 'ENSEEIHT',          focus: 'Ingénierie · Numérique',   stations: ['François Verdier', 'Carmes', 'Compans-Caffarelli'] },
+  { id: 'IEP',      short: 'Sciences Po',       focus: 'Sciences Politiques',      stations: ['Compans-Caffarelli', 'Jeanne d’Arc'] },
+];
+
+const STATIONS = [
+  { name: 'Mirail-Université',            line: 'A', neighborhood: 'Le Mirail',               pricePerM2: 1850, recentSale: 1780 },
+  { name: 'Bellefontaine',                line: 'A', neighborhood: 'Bellefontaine',           pricePerM2: 1720, recentSale: 1650 },
+  { name: 'Reynerie',                     line: 'A', neighborhood: 'Reynerie',                pricePerM2: 1690, recentSale: 1620 },
+  { name: 'Capitole',                     line: 'A', neighborhood: 'Capitole',                pricePerM2: 5240, recentSale: 5100 },
+  { name: 'Carmes',                       line: 'B', neighborhood: 'Carmes',                  pricePerM2: 5180, recentSale: 5050 },
+  { name: 'Saint-Michel — Marcel Langer', line: 'B', neighborhood: 'Saint-Michel',            pricePerM2: 3940, recentSale: 3820 },
+  { name: 'Empalot',                      line: 'B', neighborhood: 'Empalot',                 pricePerM2: 2380, recentSale: 2290 },
+  { name: 'Saouzelong',                   line: 'B', neighborhood: 'Saouzelong',              pricePerM2: 3220, recentSale: 3140 },
+  { name: 'Rangueil',                     line: 'B', neighborhood: 'Rangueil',                pricePerM2: 3110, recentSale: 3020 },
+  { name: 'Faculté de Pharmacie',         line: 'B', neighborhood: 'Pharmacie / Pouvourville', pricePerM2: 3290, recentSale: 3180 },
+  { name: 'Université Paul Sabatier',     line: 'B', neighborhood: 'Paul Sabatier',           pricePerM2: 3050, recentSale: 2960 },
+  { name: 'François Verdier',             line: 'B', neighborhood: 'Carmes / Verdier',        pricePerM2: 4810, recentSale: 4700 },
+  { name: 'Compans-Caffarelli',           line: 'B', neighborhood: 'Compans-Caffarelli',      pricePerM2: 4420, recentSale: 4300 },
+  { name: 'Jeanne d’Arc',                 line: 'B', neighborhood: 'Jeanne d’Arc',            pricePerM2: 4500, recentSale: 4380 },
+];
+
+// Loaded at runtime from listings.json (committed daily by the GitHub Action).
+// Empty until loadLiveData() resolves.
+let LIVE_LISTINGS = [];
+let LIVE_UPDATED_AT = null;
+let LIVE_LOAD_STATUS = 'loading';   // 'loading' | 'ok' | 'error'
+
+// Map a listing's postal code to a likely metro station + neighborhood.
+// Inexact (real geocoding would need lat/lng) but good enough as a hint —
+// if the postal code overlaps multiple zones, we pick the most central
+// station the user probably cares about given their selected universities.
+const POSTAL_TO_STATIONS = {
+  '31000': ['Capitole', 'Carmes', 'Saint-Michel — Marcel Langer', 'François Verdier', 'Compans-Caffarelli', 'Jeanne d’Arc'],
+  '31100': ['Mirail-Université', 'Bellefontaine', 'Reynerie'],
+  '31300': ['Compans-Caffarelli'],
+  '31400': ['Empalot', 'Saouzelong', 'Rangueil', 'Faculté de Pharmacie', 'Université Paul Sabatier'],
+  '31500': ['Jeanne d’Arc', 'François Verdier'],
+};
+
+// Pick the best station for a listing given the user's selected universities.
+function inferStation(postal, eligibleNames) {
+  const candidates = POSTAL_TO_STATIONS[postal] || [];
+  // Prefer stations the user actually cares about
+  for (const name of candidates) {
+    if (eligibleNames.has(name)) return STATIONS.find(s => s.name === name);
+  }
+  // Fall back to first candidate even if not in eligible set
+  if (candidates.length) return STATIONS.find(s => s.name === candidates[0]);
+  return null;
+}
+
+async function loadLiveData() {
+  try {
+    // Cache-bust so we always get the freshest commit from GitHub Pages
+    const r = await fetch('listings.json?t=' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    LIVE_LISTINGS = data.listings || [];
+    LIVE_UPDATED_AT = data.updated_at;
+    LIVE_LOAD_STATUS = 'ok';
+  } catch (e) {
+    console.error('Could not load listings.json:', e);
+    LIVE_LOAD_STATUS = 'error';
+  }
+  render();
+}
+
+const SOURCE_LABELS = {
+  leboncoin: 'Leboncoin',
+  seloger:   'SeLoger',
+  bienici:   'Bien’ici',
+  pap:       'PAP',
+};
+
+// ═════════════ STATE ═════════════
+
+const state = {
+  maxPrice: 160000,
+  minSurface: 20,
+  maxSurface: 80,
+  rooms: 'all',
+  universities: ['UT3', 'INSA', 'ISAE'],
+};
+
+// ═════════════ HELPERS ═════════════
+
+const fmt = (n) => n.toLocaleString('fr-FR');
+
+function buildSearchUrls(s) {
+  // The four portals use slash-based path URLs and don't reliably accept
+  // price/surface filters via the URL — those have to be set in each
+  // portal's own filter UI after landing. We deep-link to the correct
+  // city-wide "appartements à vendre, Toulouse" page on each.
+  const roomSlug = s.rooms === 'all' ? '' :
+                   s.rooms === '4+'  ? '/4-pieces' :
+                                       `/${s.rooms}-pieces`;
+  return {
+    leboncoin: `https://www.leboncoin.fr/cl/ventes_immobilieres/cp_toulouse`,
+    seloger:   `https://www.seloger.com/immobilier/achat/immo-toulouse-31/bien-appartement/`,
+    bienici:   `https://www.bienici.com/recherche/achat/toulouse-31000/appartement${roomSlug}`,
+    pap:       `https://www.pap.fr/annonce/vente-appartements-toulouse-31-g43612`,
+  };
+}
+
+function eligibleStations() {
+  const wanted = new Set();
+  UNIVERSITIES.filter(u => state.universities.includes(u.id))
+    .forEach(u => u.stations.forEach(n => wanted.add(n)));
+  return STATIONS.filter(s => wanted.has(s.name));
+}
+
+function filteredListings() {
+  const eligNames = new Set(eligibleStations().map(s => s.name));
+  return LIVE_LISTINGS
+    // Infer the listing's station from postal code; drop if no match
+    // overlaps the user's selected universities.
+    .map(l => {
+      const st = inferStation(l.postal_code, eligNames);
+      return st ? { ...l, station: st } : null;
+    })
+    .filter(l => l !== null)
+    .filter(l => eligNames.has(l.station.name))
+    // Price + surface + room filters
+    .filter(l => l.price <= state.maxPrice)
+    .filter(l => !l.surface || (l.surface >= state.minSurface && l.surface <= state.maxSurface))
+    .filter(l => state.rooms === 'all'
+      || !l.rooms
+      || (state.rooms === '4+' ? l.rooms >= 4 : l.rooms === Number(state.rooms)))
+    // Compute price-vs-market deltas only when surface is known
+    .map(l => {
+      if (!l.surface) {
+        return { ...l, ppm: null, deltaListing: null, deltaSold: null };
+      }
+      const ppm = Math.round(l.price / l.surface);
+      const dList = ((ppm - l.station.pricePerM2) / l.station.pricePerM2) * 100;
+      const dSold = ((ppm - l.station.recentSale) / l.station.recentSale) * 100;
+      return { ...l, ppm, deltaListing: dList, deltaSold: dSold };
+    })
+    .sort((a, b) => {
+      // Best deals first; listings without a delta sink to the bottom
+      if (a.deltaListing === null && b.deltaListing === null) return 0;
+      if (a.deltaListing === null) return 1;
+      if (b.deltaListing === null) return -1;
+      return a.deltaListing - b.deltaListing;
+    });
+}
+
+// ═════════════ RENDER ═════════════
+
+function render() {
+  renderUniChips();
+  renderStats();
+  renderPortals();
+  renderStationList();
+  renderListings();
+  renderChart();
+  renderUpdatedAt();
+}
+
+function renderUpdatedAt() {
+  const el = document.getElementById('updatedAt');
+  if (!el) return;
+  if (LIVE_LOAD_STATUS === 'loading') {
+    el.textContent = '/ chargement…';
+  } else if (LIVE_LOAD_STATUS === 'error') {
+    el.textContent = '/ pas de données';
+  } else if (LIVE_UPDATED_AT) {
+    const d = new Date(LIVE_UPDATED_AT);
+    el.textContent = `/ scan du ${d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}`;
+  } else {
+    el.textContent = '';
+  }
+}
+
+function renderUniChips() {
+  const grid = document.getElementById('uniGrid');
+  grid.innerHTML = '';
+  UNIVERSITIES.forEach(u => {
+    const active = state.universities.includes(u.id);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip' + (active ? ' active' : '');
+    btn.innerHTML = `<div class="label-top">${u.short}</div><div class="label-bot">${u.focus}</div>`;
+    btn.addEventListener('click', () => {
+      if (state.universities.includes(u.id)) {
+        state.universities = state.universities.filter(x => x !== u.id);
+      } else {
+        state.universities = [...state.universities, u.id];
+      }
+      render();
+    });
+    grid.appendChild(btn);
+  });
+}
+
+function renderStats() {
+  const el = document.getElementById('stats');
+  const stations = eligibleStations();
+  const matches = filteredListings();
+  const avg = stations.length
+    ? Math.round(stations.reduce((s, x) => s + x.pricePerM2, 0) / stations.length)
+    : null;
+  el.innerHTML = `
+    <div class="stat"><div class="stat-val">${state.universities.length}</div><div class="stat-label">universities selected</div></div>
+    <div class="stat"><div class="stat-val">${stations.length}</div><div class="stat-label">metro stations matched</div></div>
+    <div class="stat"><div class="stat-val">${matches.length}</div><div class="stat-label">sample matches shown</div></div>
+    <div class="stat"><div class="stat-val mono">${avg ? fmt(avg) : '—'}</div><div class="stat-label">avg €/m² in zone</div></div>
+  `;
+}
+
+function renderPortals() {
+  const urls = buildSearchUrls(state);
+  const el = document.getElementById('portals');
+  el.innerHTML = '';
+  Object.entries(urls).forEach(([key, url]) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noreferrer';
+    a.className = 'portal';
+    a.innerHTML = `
+      <div class="portal-head">
+        <div class="portal-name">${SOURCE_LABELS[key]}</div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9c8773" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </div>
+      <div class="portal-meta">
+        Toulouse · appartements à vendre<br>
+        ${key === 'bienici' && state.rooms !== 'all' ? `pré-filtré T${state.rooms}` : 'set price &amp; m² on the portal'}
+      </div>
+      <div class="portal-cta">Open live results →</div>
+    `;
+    el.appendChild(a);
+  });
+}
+
+function renderStationList() {
+  const el = document.getElementById('stationList');
+  const stations = eligibleStations();
+  if (stations.length === 0) {
+    el.innerHTML = `<div style="color:#9c8773;font-style:italic;font-size:14px">Pick at least one university to see eligible stations.</div>`;
+    return;
+  }
+  el.innerHTML = stations.map(s => `
+    <div class="station-pill">
+      <span class="line-badge line-${s.line}">${s.line}</span>
+      <span>${s.name}</span>
+      <span class="ppm">${fmt(s.pricePerM2)}€/m²</span>
+    </div>
+  `).join('');
+}
+
+function renderListings() {
+  const el = document.getElementById('listings');
+  const list = filteredListings();
+
+  // Loading / error states take priority over filter messaging
+  if (LIVE_LOAD_STATUS === 'loading') {
+    showListingsState('Chargement des annonces…', 'Récupération du dernier scan.');
+    return;
+  }
+  if (LIVE_LOAD_STATUS === 'error') {
+    showListingsState(
+      'Aucune donnée disponible',
+      'Le scraper du jour n’a pas pu écrire de fichier (Datadome a probablement bloqué la requête). Réessayez demain ou utilisez les liens vers les portails ci-dessus.'
+    );
+    return;
+  }
+  if (LIVE_LISTINGS.length === 0) {
+    showListingsState(
+      'Aucune annonce dans le dernier scan',
+      'Le scraper a tourné mais n’a rien trouvé sous 160 000 €.'
+    );
+    return;
+  }
+  if (list.length === 0) {
+    showListingsState(
+      'Aucune annonce ne correspond à vos filtres',
+      'Élargissez la fourchette de surface ou cochez plus d’universités.'
+    );
+    return;
+  }
+
+  // Re-create as a listings grid if it was previously a state panel
+  if (!el.classList.contains('listings')) {
+    const fresh = document.createElement('div');
+    fresh.id = 'listings';
+    fresh.className = 'listings';
+    el.replaceWith(fresh);
+  }
+  const target = document.getElementById('listings');
+  target.innerHTML = list.map(l => {
+    const hasDelta = l.deltaListing !== null;
+    const tone = !hasDelta ? 'unknown'
+      : l.deltaListing < -5 ? 'good'
+      : l.deltaListing > 5  ? 'bad'
+      : 'neutral';
+    const toneColor = { good: '#5B7C4A', bad: '#B0492C', neutral: '#5C4A3E', unknown: '#9c8773' }[tone];
+    const toneLabel = !hasDelta
+      ? 'Surface inconnue — pas de comparaison'
+      : tone === 'good' ? 'Below market'
+      : tone === 'bad'  ? 'Above market'
+      : 'In line with market';
+    const toneIcon = tone === 'good'
+      ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>'
+      : tone === 'bad'
+      ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>'
+      : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+
+    const lineColor = l.station.line === 'A' ? '#B0492C' : '#3B6E8F';
+    const firstSeenDays = l.first_seen ? daysAgo(l.first_seen) : null;
+    const sourceTag = firstSeenDays !== null
+      ? `${SOURCE_LABELS[l.source]} · ${firstSeenDays}d`
+      : SOURCE_LABELS[l.source];
+
+    const specBits = [];
+    if (l.surface) specBits.push(`${l.surface} m²`);
+    if (l.rooms)   specBits.push(`T${l.rooms}`);
+    const specLine = specBits.join(' · ') || '—';
+
+    return `
+      <a class="card" href="${l.url}" target="_blank" rel="noreferrer">
+        <div class="card-photo" style="background: linear-gradient(135deg, ${lineColor}40, #7E2E1A30);">
+          <svg class="building-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>
+          <div class="card-tag right">${sourceTag}</div>
+          <div class="card-station">
+            <span class="line-badge line-${l.station.line}">${l.station.line}</span>
+            <span class="name">${l.station.name}</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row">
+            <h3 class="card-title">${escapeHtml(l.title)}</h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9c8773" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:4px"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+          <div class="card-meta-line">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            ${l.station.neighborhood}
+            ${l.postal_code ? `<span class="dot">·</span> ${l.postal_code}` : ''}
+          </div>
+          <div class="card-price-row">
+            <div>
+              <div class="card-price">${fmt(l.price)} €</div>
+              <div class="card-ppm">${l.ppm ? fmt(l.ppm) + ' €/m²' : ''}</div>
+            </div>
+            <div>
+              <div class="card-spec">${specLine}</div>
+            </div>
+          </div>
+          <div class="card-indicator">
+            <div class="ind-row" style="color:${toneColor}">
+              <span class="ind-label">${toneIcon} ${toneLabel}</span>
+              ${hasDelta ? `<span class="ind-pct">${l.deltaListing > 0 ? '+' : ''}${l.deltaListing.toFixed(1)}%</span>` : ''}
+            </div>
+            ${hasDelta ? `
+              <div class="ind-row minor">
+                <span>vs. recent sales (DVF)</span>
+                <span class="ind-pct">${l.deltaSold > 0 ? '+' : ''}${l.deltaSold.toFixed(1)}%</span>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+function showListingsState(title, sub) {
+  const el = document.getElementById('listings');
+  el.outerHTML = `<div id="listings" class="empty-state"><div class="title">${title}</div><div class="sub">${sub}</div></div>`;
+}
+
+function escapeHtml(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function daysAgo(iso) {
+  const t = Date.parse(iso);
+  if (!t) return null;
+  return Math.max(0, Math.floor((Date.now() - t) / 86400000));
+}
+
+function renderChart() {
+  const wrap = document.getElementById('chartWrap');
+  const stations = eligibleStations();
+  if (stations.length === 0) {
+    wrap.innerHTML = `<div style="color:#9c8773;font-style:italic;font-size:14px">Pick a university to see the benchmark.</div>`;
+    return;
+  }
+  const data = stations.slice().sort((a, b) => a.pricePerM2 - b.pricePerM2);
+  const max = Math.max(...data.flatMap(d => [d.pricePerM2, d.recentSale]));
+
+  const rows = data.map(d => {
+    const pctC = (d.pricePerM2 / max) * 100;
+    const pctS = (d.recentSale / max) * 100;
+    return `
+      <div class="chart-row">
+        <div class="lbl">${d.neighborhood}</div>
+        <div class="bars">
+          <div class="bar current" style="width:${pctC}%" title="Asking €/m²"></div>
+          <div class="bar sold" style="width:${pctS}%" title="Recent sale €/m²"></div>
+        </div>
+        <div class="val">${fmt(d.pricePerM2)} / ${fmt(d.recentSale)}</div>
+      </div>
+    `;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="chart-wrap">
+      ${rows}
+      <div class="legend-row">
+        <div class="legend-item"><span class="legend-swatch" style="background:#B0492C"></span>Current asking €/m²</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#3B6E8F"></span>Recent sale €/m² (DVF-style)</div>
+      </div>
+    </div>
+  `;
+}
+
+// ═════════════ EVENTS ═════════════
+
+document.getElementById('infoBtn').addEventListener('click', () => {
+  document.getElementById('infoPanel').classList.toggle('open');
+});
+
+document.getElementById('maxPrice').addEventListener('input', (e) => {
+  state.maxPrice = Number(e.target.value);
+  document.getElementById('maxPriceVal').textContent = `${fmt(state.maxPrice)} €`;
+  render();
+});
+document.getElementById('minSurface').addEventListener('input', (e) => {
+  const v = Math.min(Number(e.target.value), state.maxSurface - 5);
+  state.minSurface = v;
+  e.target.value = v;
+  document.getElementById('minSurfaceVal').textContent = `${v} m²`;
+  render();
+});
+document.getElementById('maxSurface').addEventListener('input', (e) => {
+  const v = Math.max(Number(e.target.value), state.minSurface + 5);
+  state.maxSurface = v;
+  e.target.value = v;
+  document.getElementById('maxSurfaceVal').textContent = `${v} m²`;
+  render();
+});
+
+document.querySelectorAll('.room-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.room-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.rooms = btn.dataset.room;
+    render();
+  });
+});
+
+// ═════════════ INIT ═════════════
+render();              // render the shell immediately (universities, filters, portals)
+loadLiveData();        // then fetch listings.json and re-render listings + benchmark
+</script>
+</body>
+</html>
